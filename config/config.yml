@@ -1,0 +1,29 @@
+mail:
+  :smtp:
+    :address: "smtp.gmail.com"
+    :port: 587
+    :user_name: "rmu.rapportive.bot@gmail.com"
+    :password: "PASSWORD"
+    :authentication: "plain"
+    :enable_starttls_auto: true
+    
+  :pop3:
+    :address: "pop.gmail.com"
+    :port: 995
+    :user_name: "rmu.rapportive.bot@gmail.com"
+    :password: "PASSWORD"
+    :enable_ssl: true
+    
+api:
+  :github:
+    :api_base_url: "http://github.com/api/v2/json/user/email/"
+    :profile_base_url: "http://github.com/"
+    
+  :flickr:
+    :api_base_url: "http://api.flickr.com/services/rest/?"
+    :api_key: "API_KEY"
+    :email_method: "flickr.people.findByEmail"
+    :profile_method: "flickr.urls.getUserProfile"
+    
+  :ohloh:
+    :profile_base_url: "http://www.ohloh.net/accounts/"
