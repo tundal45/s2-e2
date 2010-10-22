@@ -7,7 +7,13 @@ require 'digest/md5'
 class NetworkProfile
   attr_accessor :config, :network, :email, :profile_url
   
-  def find(param)
+  def initialize(param, config)
+    @network = param[:network]
+    @email = param[:email]
+    @config = config
+  end
+  
+  def find
     search
     respond
   end
@@ -18,13 +24,7 @@ class NetworkProfile
 end
 
 class FlickrProfile < NetworkProfile
-  
-  def initialize(param, config)
-    @network = param[:network]
-    @email = param[:email]
-    @config = config
-  end
-  
+
   def search
     request_url = "#{@config[:api_base_url]}method=#{@config[:email_method]}&api_key=#{@config[:api_key]}&find_email=#{@email}"
     response = Nokogiri::XML(open(request_url))
@@ -42,13 +42,7 @@ class FlickrProfile < NetworkProfile
 end
 
 class GitHubProfile < NetworkProfile
-  
-  def initialize(param, config)
-    @network = param[:network]
-    @email = param[:email]
-    @config = config
-  end
-    
+
   def search
     request_url = "#{@config[:api_base_url]}#{@email}"
     user_name = JSON.parse(open(request_url).read)["user"]["login"]
@@ -59,13 +53,7 @@ class GitHubProfile < NetworkProfile
 end
 
 class OhLohProfile < NetworkProfile
-  
-  def initialize(param, config)
-    @network = param[:network]
-    @email = param[:email]
-    @config = config
-  end
-    
+
   def search
     md5 = Digest::MD5.hexdigest(@email)
     request_url = "#{@config[:profile_base_url]}#{md5}"
@@ -76,5 +64,3 @@ class OhLohProfile < NetworkProfile
     @profile_url = nil
   end
 end
-
-
